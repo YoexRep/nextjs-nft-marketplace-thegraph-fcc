@@ -26,6 +26,9 @@ export default function UpdateListingModal({
         setPriceToUpdateListingWith("0")
     }
 
+    {
+        /* usando el hook web3Contract de moralis, podemos usarlo para hacer la conexion con nuestra blockchain y poder llamar a la funciones  */
+    }
     const { runContractFunction: updateListing } = useWeb3Contract({
         abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
