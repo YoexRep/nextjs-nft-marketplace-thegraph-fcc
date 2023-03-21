@@ -99,6 +99,8 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
 
     const handleCardClick = () => {
         //Si es del usuario
+
+        console.log(isOwnedByUser)
         isOwnedByUser
             ? setShowModal(true)
             : buyItem({
