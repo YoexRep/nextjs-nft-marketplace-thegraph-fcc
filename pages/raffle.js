@@ -9,7 +9,7 @@ import nftMarketplaceAbi from "../constants/NftMarketplace.json"
 import networkMapping from "../constants/networkMapping.json"
 import { useEffect, useState } from "react"
 
-export default function Home() {
+export default function Raffle() {
     const { chainId, account, isWeb3Enabled } = useMoralis()
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     const marketplaceAddress = networkMapping[chainString].NftMarketplace[0]
@@ -104,53 +104,22 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
-            <Form
-                onSubmit={approveAndList}
-                data={[
-                    {
-                        name: "NFT Address",
-                        type: "text",
-                        inputWidth: "50%",
-                        value: "",
-                        key: "nftAddress",
-                    },
-                    {
-                        name: "Token ID",
-                        type: "number",
-                        value: "",
-                        key: "tokenId",
-                    },
-                    {
-                        name: "Price (in MATIC)",
-                        type: "number",
-                        value: "",
-                        key: "price",
-                    },
-                ]}
-                title="Sell your NFT!"
-                id="Main Form"
+            <Button
+                onClick={() => {
+                    runContractFunction({
+                        params: {
+                            abi: nftMarketplaceAbi,
+                            contractAddress: marketplaceAddress,
+                            functionName: "withdrawProceeds",
+                            params: {},
+                        },
+                        onError: (error) => console.log(error),
+                        onSuccess: () => handleWithdrawSuccess,
+                    })
+                }}
+                text="Comprar billete"
+                type="button"
             />
-            <div>Withdraw {proceeds} proceeds</div>
-            {proceeds != "0" ? (
-                <Button
-                    onClick={() => {
-                        runContractFunction({
-                            params: {
-                                abi: nftMarketplaceAbi,
-                                contractAddress: marketplaceAddress,
-                                functionName: "withdrawProceeds",
-                                params: {},
-                            },
-                            onError: (error) => console.log(error),
-                            onSuccess: () => handleWithdrawSuccess,
-                        })
-                    }}
-                    text="Withdraw"
-                    type="button"
-                />
-            ) : (
-                <div>No proceeds detected</div>
-            )}
         </div>
     )
 }

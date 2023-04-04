@@ -133,11 +133,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
                             onClose={hideModal}
                         />
                         {/*Componente importado de web3uikit para colocar tarjetas de marcos*/}
-                        <Card
-                            title={tokenName}
-                            description={tokenDescription}
-                            onClick={handleCardClick}
-                        >
+                        <Card title={tokenName} description={nftAddress} onClick={handleCardClick}>
                             <div className="p-2">
                                 <div className="flex flex-col items-end gap-2">
                                     <div>#{tokenId}</div>
@@ -152,7 +148,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
                                         width="200"
                                     />
                                     <div className="font-bold">
-                                        {ethers.utils.formatUnits(price, "ether")} ETH
+                                        {ethers.utils.formatUnits(price, "ether")} MATIC
                                     </div>
                                 </div>
                             </div>
